@@ -1,0 +1,65 @@
+#/*******************************************************************************
+# * 
+# *  This file is part of the scientific research and development work conducted
+# *  at the Communication Networks Institute (CNI), TU Dortmund University.
+# *  
+# *  Copyright (C) 2018 Communication Networks Institute (CNI)
+# *  Technische Universität Dortmund
+# *
+# *  Contact: kn.etit@tu-dortmund.de    
+# *  Authors: Fabian Eckermann and Philipp Gorczak 
+# *           {fabian.eckermann, philipp.gorczak}@tu-dortmund.de
+# *
+# *  This program is free software: you can redistribute it and/or modify
+# *  it under the terms of the GNU Lesser General Public License as published by
+# *  the Free Software Foundation in version 3 of the License
+# *   
+# *  This program is distributed in the hope that it will be useful,
+# *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+# *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# *  GNU General Public License for more details.
+# *   
+# *  You should have received a copy of the GNU Lesser General Public License
+# *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# *
+# *  For more information on this software, see the institute's project website at: 
+# *  http://www.cni.tu-dortmund.de
+# *
+#*******************************************************************************/
+
+version: '3'
+services:
+  enb:
+    build: ../srslte
+    command: bash -c "srsenb corenet_srsenb.conf"
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - ${LTEBOX_CONF:-../conf}:/conf
+    networks:
+      s1:
+        ipv4_address: 172.19.98.3
+  corenet:
+    build: ../corenet
+    command: bash -c "python corenet.py & touch /tmp/corenet.log && tail -F /tmp/corenet.log"
+    privileged: true
+    volumes:
+      - ${LTEBOX_CONF:-../conf}:/conf
+    networks:
+      sgi:
+      s1:
+        ipv4_address: 172.19.98.2
+networks:
+  sgi:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.19.99.0/24
+  s1:
+    internal: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.19.98.0/24

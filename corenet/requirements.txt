@@ -1,0 +1,4 @@
+netifaces
+ipython==5.3.0
+pycrypto==2.6.1
+pysctp==0.6

@@ -1,0 +1,3 @@
+*.pyc
+conf/__pycache__
+conf/.fftw_wisdom
