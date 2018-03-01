@@ -1,11 +1,13 @@
 # tinyLTE
 
 tinyLTE is a low cost, lightweight autonomous LTE network, building upon
-virtualization techniques and open source software stacks. It is a pragmatic approach for building standalone LTE cells with off the shelf hardware.
+virtualization techniques and open source software stacks. It is a pragmatic approach for building standalone LTE cells with off the shelf software defined radio (SDR) hardware.
 
 The following software is virtualized:
 * [srsLTE](https://github.com/srsLTE/srsLTE) by [SRS](http://www.softwareradiosystems.com)
 * [corenet](https://github.com/tudo-cni/corenet) by [Benoit Michau](https://github.com/mitshell)
+
+There are two types of containers: one for infrastructure (op) and one for network clients (ue). Infrastructure containers deploy a base station backed by a local core network (eNB + EPC), while clients act as LTE user devices (UE). A host can be both infrastructure and client at the same time if it has access to two SDRs. The setup has been developed and tested with *USRP B210* SDRs.
 
 ## Getting started
 
