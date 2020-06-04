@@ -33,7 +33,7 @@ ARG UBUNTU_VERSION=xenial
 FROM ubuntu:${UBUNTU_VERSION} as builder
 ARG UBUNTU_VERSION
 ARG SRSLTE_REPO=https://github.com/srsLTE/srsLTE
-ARG SRSLTE_CHECKOUT=master
+ARG SRSLTE_CHECKOUT=release_17_09
 
 # Install build dependencies
 # warning: pulled libboost-all-dev because libboost(-dev) alone left
