@@ -66,7 +66,8 @@ RUN mkdir /srslte \
  && mkdir build \
  && cd build \
  && cmake -DCMAKE_INSTALL_PREFIX:PATH=/opt/srslte ../srslte \
- && make install
+ && make install \
+ && ldconfig
 
 
 # Final container
